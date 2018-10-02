@@ -148,7 +148,7 @@ describe('GET /todos/:id', () => {
 		var text = 'Testing patch request';
 		 
 		request(app)
-		.patch(`todos/${hexId}`)
+		.patch(`/todos/${hexId}`)
 		.send({
 			completed: true,
 			text
@@ -165,17 +165,17 @@ describe('GET /todos/:id', () => {
 
 	it('should clear completedAt when todo is not completed', (done) => { 
 		var hexId = todos[1]._id.toHexString();
-		var text = 'Second case';
+		var text = 'Testing patch request1';
 
 		request(app)
-		.patch(`todos/${hexId}`)
+		.patch(`/todos/${hexId}`)
 		.send({
 			completed: false,
 			text
 		})
 		.expect(200)
 		.expect((res) => {
-			expect(res.body.text).toBe(text);
+			expect(res.body.todo.text).toBe(text);
 			expect(res.body.todo.completed).toBe(false);
 			expect(res.body.todo.completedAt).toNotExist();
 		})
